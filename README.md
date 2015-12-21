@@ -3,6 +3,8 @@
 
 **Authors:** Ramik Chopra and Justin Boucher. Copyright (C) 2016 Ramik Chopra and Justin Boucher.
 
+*__NOTE:__ Uses Orcas' Fitbit API classes, using the Apache2 license. His project is at https://github.com/orcasgit/python-fitbit*
+
 **Source type(s):**
 + Fit:Activity
 + Fit:BodyFat
