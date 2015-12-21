@@ -1,0 +1,9 @@
+# Ignore common junk files for python dev
+*.pyc
+*.swp
+*.idea
+*.DS_Store*
+
+
+# Splunk Specific Testing Configs
+local/
