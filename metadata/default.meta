@@ -1,7 +1,7 @@
 # App Level Permissions File!
 # Please use caution when modifying this file,
 # or not, and nuke your ability to modify the app via GUI.
-# It's up to you.
+# It's up to you. Make changes to local.meta instead.
 #
 
 []
