@@ -21,9 +21,9 @@ from requests_oauthlib import OAuth1, OAuth1Session, OAuth2, OAuth2Session
 from oauthlib.oauth2 import TokenExpiredError
 from oauthlib.common import urldecode
 from fitbit.exceptions import (BadResponse, DeleteError, HTTPBadRequest,
-                               HTTPUnauthorized, HTTPForbidden,
-                               HTTPServerError, HTTPConflict, HTTPNotFound,
-                               HTTPTooManyRequests)
+                                   HTTPUnauthorized, HTTPForbidden,
+                                   HTTPServerError, HTTPConflict, HTTPNotFound,
+                                   HTTPTooManyRequests)
 from fitbit.utils import curry
 
 
@@ -180,7 +180,7 @@ class FitbitOauth2Client(object):
         enc_str = base64.b64encode(dec_str.encode('utf-8'))
         self.auth_header = {'Authorization': b'Basic ' + enc_str}
 
-        self.token = {'access_token' : access_token,
+        self.token = {'access_token': access_token,
                       'refresh_token': refresh_token}
 
         self.oauth = OAuth2Session(client_id)
@@ -208,9 +208,9 @@ class FitbitOauth2Client(object):
             auth = OAuth2(client_id=self.client_id, token=self.token)
             response = self._request(method, url, data=data, auth=auth, **kwargs)
 
-        #yet another token expiration check
-        #(the above try/except only applies if the expired token was obtained
-        #using the current instance of the class this is a a general case)
+        # yet another token expiration check
+        # (the above try/except only applies if the expired token was obtained
+        # using the current instance of the class this is a a general case)
         if response.status_code == 401:
             d = json.loads(response.content.decode('utf8'))
             try:

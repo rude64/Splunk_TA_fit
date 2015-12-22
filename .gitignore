@@ -7,3 +7,5 @@
 
 # Splunk Specific Testing Configs
 local/
+gather*
+config.ini
