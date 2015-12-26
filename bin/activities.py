@@ -1,8 +1,13 @@
-import fitbit, json
-import requests.packages.urllib3
-requests.packages.urllib3.disable_warnings()
+import os, fitbit, json
+# import requests.packages.urllib3
+# requests.packages.urllib3.disable_warnings()
 
-tokenfile = "user_settings.txt"
+# Setup Splunk Environment
+APPNAME = 'Splunk_TA_fit'
+CONFIG = '/bin/user_settings.txt'
+SPLUNK_HOME = os.environ['SPLUNK_HOME']
+
+tokenfile = SPLUNK_HOME + '/etc/apps/' + APPNAME + CONFIG
 
 fit = fitbit.Fitbit()
 
@@ -24,5 +29,6 @@ minutesSedentary = json.dumps(minutesSedentary['activities-log-minutesSedentary'
 
 # Send to stdout for Splunk to consume in inputs.conf
 print '{"activities-log-calories": %s}' % calories
+
 print '{"activities-log-steps": %s}' % steps
 print '{"activities-log-minutesSedentary": %s}' % minutesSedentary

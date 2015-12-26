@@ -5,11 +5,16 @@ Currently in Beta version. Email me to get instructions on
 usage. I need to automate process still. - JB
 """
 
-import fitbit, json
+import os, fitbit, json
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
 
-tokenfile = "user_settings.txt"
+# Setup Splunk Environment
+APPNAME = 'Splunk_TA_fit'
+CONFIG = '/bin/user_settings.txt'
+SPLUNK_HOME = os.environ['SPLUNK_HOME']
+
+tokenfile = SPLUNK_HOME + '/etc/apps/' + APPNAME + CONFIG
 
 fit = fitbit.Fitbit()
 

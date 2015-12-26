@@ -10,12 +10,17 @@ Most of the code has been adapted from: https://groups.google.com/group/fitbit-a
 import os, base64, requests, urllib
 import ConfigParser
 
+# Setup Splunk Environment
+APPNAME = 'Splunk_TA_fit'
+CONFIG = '/bin/config.ini'
+SPLUNK_HOME = os.environ['SPLUNK_HOME']
+
 class Fitbit():
 
     # All information must be as on the https://dev.fitbit.com/apps page.
     # Load Settings
     parser = ConfigParser.SafeConfigParser()
-    parser.read('config.ini')
+    parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + CONFIG)
     CLIENT_ID = parser.get('Login Parameters', 'C_KEY')
     CLIENT_SECRET = parser.get('Login Parameters', 'C_SECRET')
     REDIRECT_URI  = parser.get('Login Parameters', 'REDIRECT_URI')
