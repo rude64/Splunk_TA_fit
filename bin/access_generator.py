@@ -1,3 +1,10 @@
+"""
+access_generator.py
+Needed to develop initial access tokens for script use.
+Currently in Beta version. Email me to get instructions on
+usage. I need to automate process still. - JB
+"""
+
 import fitbit, json
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
