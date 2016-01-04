@@ -9,6 +9,7 @@ Most of the code has been adapted from: https://groups.google.com/group/fitbit-a
                   Added refresh and access token write to file. Added CherryPy verifier to make OAuth access easier.
 """
 import os, base64, requests, urllib
+import cherrypy
 import json
 import ConfigParser
 
@@ -154,3 +155,19 @@ class Fitbit():
             self.ApiCall(token, apiCall)
         else:
             raise Exception("Something went wrong requesting (%s): %s" % (resp['errors'][0]['errorType'], resp['errors'][0]['message']))
+
+    # CherryPy to facilitate user interaction
+    @cherrypy.expose
+    def index(self, code=None):
+        if code:
+            def query():
+                yield "Copy this code into the application: "
+                yield cherrypy.request.params.get('code', None)
+        self._shutdown_cherrypy()
+        return query()
+    index.exposed = True
+
+    def _shutdown_cherrypy(self):
+        """ Shutdown cherrypy in one second, if it's running """
+        if cherrypy.engine.state == cherrypy.engine.states.STARTED:
+            threading.Timer(1, cherrypy.engine.exit).start()

@@ -6,6 +6,8 @@ usage. I need to automate process still. - JB
 """
 
 import os, fitbit, json
+import cherrypy
+import webbrowser
 # import requests.packages.urllib3
 # requests.packages.urllib3.disable_warnings()
 
@@ -25,7 +27,8 @@ except IOError:
     # If not generate a new file
     # Get the authorization URL for user to complete in browser.
     auth_url = fit.GetAuthorizationUri()
-    print "Please visit the link below and approve the app:\n %s" % auth_url
+    webbrowser.open(auth_url)
+    cherrypy.quickstart(fit)
     # Set the access code that is part of the arguments of the callback URL FitBit redirects to.
     access_code = raw_input("Please enter code (from the URL you were redirected to): ")
     # Use the temporary access code to obtain a more permanent pair of tokens
