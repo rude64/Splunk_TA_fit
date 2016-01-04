@@ -6,14 +6,22 @@ Most of the code has been adapted from: https://groups.google.com/group/fitbit-a
 10/22/2015 - JG - Removed use of oauth2 library (signing is not necessary anymore),
                   updated to use /oauth2/ authentication infrastructure to get access to more stats.
 12/26/2015 - JB - Modified to receive config file parameters, and updated API call function to fit Splunk requirements.
+                  Added refresh and access token write to file. Added CherryPy verifier to make OAuth access easier.
 """
 import os, base64, requests, urllib
+import json
 import ConfigParser
 
 # Setup Splunk Environment
 APPNAME = 'Splunk_TA_fit'
 CONFIG = '/bin/config.ini'
 SPLUNK_HOME = os.environ['SPLUNK_HOME']
+
+APPNAME = 'Splunk_TA_fit'
+TOKEN_CONFIG = '/bin/user_settings.txt'
+SPLUNK_HOME = os.environ['SPLUNK_HOME']
+
+tokenfile = SPLUNK_HOME + '/etc/apps/' + APPNAME + TOKEN_CONFIG
 
 class Fitbit():
 
@@ -112,6 +120,7 @@ class Fitbit():
         token['access_token']  = resp['access_token']
         token['refresh_token'] = resp['refresh_token']
 
+
         return token
 
     # Place api call to retrieve data
@@ -141,6 +150,7 @@ class Fitbit():
             print "The access token you provided has been expired let me refresh that for you."
             # Refresh the access token with the refresh token if expired. Access tokens should be good for 1 hour.
             token = self.RefAccessToken(token)
+            json.dump(token, open(tokenfile, 'w'))
             self.ApiCall(token, apiCall)
         else:
             raise Exception("Something went wrong requesting (%s): %s" % (resp['errors'][0]['errorType'], resp['errors'][0]['message']))
