@@ -3,7 +3,7 @@
 
 **Authors:** Ramik Chopra and Justin Boucher. Copyright (C) 2016 Ramik Chopra and Justin Boucher.
 
-*__NOTE:__ Uses Orcas' Fitbit API classes, using the Apache2 license. His project is at https://github.com/orcasgit/python-fitbit*
+*__NOTE:__ Uses heavily modified version of magnific0's Fitbit classes'. The magnific0 project is at [https://github.com/magnific0/FitBit.py](https://github.com/magnific0/FitBit.py)*
 
 **Source type(s):**
 + Fit:Activity
