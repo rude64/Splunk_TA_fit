@@ -15,6 +15,7 @@ REDIRECT_URI=http://127.0.0.1:8080      # Fitbit App redirect URL
 [Activity]
 DATE_INTERVAL = 1d      # 1d is currently the only accepted response
 TIME_INTERVAL = 15min   # 1min or 15min
+TIME_DELAY = -15        # Always -(minus). Expressed in x number of minutes
 
 [Heart]
 DATE_INTERVAL = 1d      # 1d is currently the only accepted response
