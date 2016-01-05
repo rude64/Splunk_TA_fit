@@ -9,9 +9,7 @@
 **Source type(s):**
 + Fit:Activity
 + Fit:BodyFat
-+ Fit:Devices
 + Fit:FoodLogging
-+ Fit:Friends
 + Fit:HeartRate
 + Fit:Sleep
 + Fit:User
