@@ -23,6 +23,7 @@ TOKEN_CONFIG = '/bin/user_settings.txt'
 
 tokenfile = SPLUNK_HOME + '/etc/apps/' + APPNAME + TOKEN_CONFIG
 
+
 class Fitbit():
 
     # All information must be as on the https://dev.fitbit.com/apps page.
@@ -150,7 +151,7 @@ class Fitbit():
             # Refresh the access token with the refresh token if expired. Access tokens should be good for 1 hour.
             token = self.RefAccessToken(token)
             json.dump(token, open(tokenfile, 'w'))
-            # self.ApiCall(token, apiCall)
+            self.ApiCall(token, apiCall)
         else:
             raise Exception("Something went wrong requesting (%s): %s" % (resp['errors'][0]['errorType'], resp['errors'][0]['message']))
 
