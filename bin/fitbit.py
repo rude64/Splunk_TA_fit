@@ -7,9 +7,11 @@ Most of the code has been adapted from: https://groups.google.com/group/fitbit-a
                   updated to use /oauth2/ authentication infrastructure to get access to more stats.
 12/26/2015 - JB - Modified to receive config file parameters, and updated API call function to fit Splunk requirements.
                   Added refresh and access token write to file. Added CherryPy verifier to make OAuth access easier.
+                  Added Intraday Time Series function. Added Token File gathering to clean up worker files code.
 """
 import os, base64, requests, urllib
-import cherrypy
+import cherrypy, threading
+import datetime as dt
 import json
 import ConfigParser
 
@@ -118,7 +120,6 @@ class Fitbit():
         token['access_token']  = resp['access_token']
         token['refresh_token'] = resp['refresh_token']
 
-
         return token
 
     # Place api call to retrieve data
@@ -158,7 +159,7 @@ class Fitbit():
     def index(self, code=None):
         if code:
             def query():
-                yield "Copy this code into the application: "
+                yield "Copy this code into the access_generator utility: "
                 yield cherrypy.request.params.get('code', None)
         self._shutdown_cherrypy()
         return query()
@@ -168,3 +169,39 @@ class Fitbit():
         """ Shutdown cherrypy in one second, if it's running """
         if cherrypy.engine.state == cherrypy.engine.states.STARTED:
             threading.Timer(1, cherrypy.engine.exit).start()
+
+    def ReadToken(self):
+        try:
+            token = json.load(open(tokenfile))
+        except IOError:
+            print "Error retrieving access token. Please rerun provided access_generator.py!"
+            auth_url = fit.GetAuthorizationUri()
+            print "Please visit the link below and approve the app:\n %s" % auth_url
+            # Set the access code that is part of the arguments of the callback URL FitBit redirects to.
+            access_code = raw_input("Please enter code (from the URL you were redirected to): ")
+            # Use the temporary access code to obtain a more permanent pair of tokens
+            token = fit.GetAccessToken(access_code)
+            # Save the token to a file
+            json.dump(token, open(tokenfile,'w'))
+        return token
+
+    def TimeSeries(self, endpoint):
+        parser = ConfigParser.SafeConfigParser()
+        parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + CONFIG)
+        date_interval = parser.get(endpoint, 'DATE_INTERVAL')
+        time_interval = parser.get(endpoint, 'TIME_INTERVAL')
+        time_delay = parser.get(endpoint, 'TIME_DELAY')
+
+        # Create start time and end time for api call
+        delay = int(time_delay)
+        now = dt.datetime.now()
+        delta = dt.timedelta(minutes=delay)
+        t = now.time()
+        end_time = (t.strftime('%H:%M'))
+
+        # Subtract x minutes from start time to provide end time
+        start_time = ((dt.datetime.combine(dt.date(1, 1, 1), t) + delta).time().strftime('%H:%M'))
+
+        time_series = {'DATE': date_interval, 'TIME': time_interval, 'START': start_time, 'END': end_time }
+
+        return time_series
