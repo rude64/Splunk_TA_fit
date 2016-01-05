@@ -14,7 +14,6 @@
 + Fit:Friends
 + Fit:HeartRate
 + Fit:Sleep
-+ Fit:Subscription
 + Fit:User
 
 **Supported Devices:**
