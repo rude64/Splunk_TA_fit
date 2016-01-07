@@ -43,7 +43,7 @@ Before using this TA, you must create a Fitbit app at [https://dev.fitbit.com](h
 ### Install the TA in Splunk
 Install the TA on your Splunk indexers via any Splunk provided means. Install from file is preferred, however any installation procedure can be followed. If you are unfamiliar with Splunk app installation see the following [Splunk Answers Post](https://answers.splunk.com/answers/51894/how-to-install-a-splunk-app.html). Then restart Splunk in order to continue installation.
 
-Next, configure the setup of the TA by navigating to _http://__mysplunkserver__:8000/en-US/manager/search/apps/local_ and select the **"Setup App"** option for the TA. This screen provides the OAuth2 setup information required to obtain data from Fitbit.
+Next, configure the setup of the TA by navigating to _http://**mysplunkserver**:8000/en-US/manager/search/apps/local_ and select the **"Setup App"** option for the TA. This screen provides the OAuth2 setup information required to obtain data from Fitbit.
 
 _**Advanced Config:** $SPLUNK_HOME/etc/apps/Splunk_TA_fit/default/appconfig.conf contains additional advanced setup information. These settings can be copied to the /local/appconfig.conf file for further tweaking of the TA. All advanced information in the default/appconfig.conf file have been commented. This configuration information will eventually be added to the setup file._
 
