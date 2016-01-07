@@ -9,11 +9,27 @@ Most of the code has been adapted from: https://groups.google.com/group/fitbit-a
                   Added refresh and access token write to file. Added CherryPy verifier to make OAuth access easier.
                   Added Intraday Time Series function. Added Token File gathering to clean up worker files code.
 """
-import os, base64, requests, urllib
-import cherrypy, threading
+import sys, os, base64
 import datetime as dt
-import json
 import ConfigParser
+
+# Setup Splunk Environment
+APPNAME = 'Splunk_TA_fit'
+CONFIG = 'appconfig.conf'
+SPLUNK_HOME = os.environ['SPLUNK_HOME']
+TOKEN_CONFIG = '/bin/user_settings.txt'
+
+#dynamically load in any eggs in /etc/apps/Splunk_TA_fit/bin
+EGG_DIR = SPLUNK_HOME + "/etc/apps/" + APPNAME + "/bin/"
+
+for filename in os.listdir(EGG_DIR):
+    if filename.endswith(".egg"):
+        sys.path.append(EGG_DIR + filename)
+
+
+import requests, urllib
+import cherrypy, threading
+import json
 
 
 # Setup Splunk Environment
