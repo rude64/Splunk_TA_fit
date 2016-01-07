@@ -31,7 +31,6 @@
 - CherryPy - Egg file to be provided at later date
 
 #### ToDo
-- Add CherryPy Egg file to /bin/ directory
 - Add advanced config to setup
 - Add more Sleep information. Currently sleep functionality is configured for OAuth version 1, and Fitbit has not provided OAuth2 version stats as of yet. Basic stats are the only available stats right now.
 - Add BodyFat information. Same problem as Sleep functionality right now. Additionally no Aria has been provided to test at this point.
