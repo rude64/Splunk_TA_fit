@@ -17,22 +17,28 @@ import ConfigParser
 
 # Setup Splunk Environment
 APPNAME = 'Splunk_TA_fit'
-CONFIG = '/bin/config.ini'
+LOCAL_CONFIG = '/local/appconfig.conf'
+DEFAULT_CONFIG = '/default/appconfig.conf'
 SPLUNK_HOME = os.environ['SPLUNK_HOME']
 TOKEN_CONFIG = '/bin/user_settings.txt'
 
 tokenfile = SPLUNK_HOME + '/etc/apps/' + APPNAME + TOKEN_CONFIG
+
+try:
+    parser = ConfigParser.SafeConfigParser()
+    parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + LOCAL_CONFIG)
+finally:
+    parser = ConfigParser.SafeConfigParser()
+    parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + DEFAULT_CONFIG)
 
 
 class Fitbit():
 
     # All information must be as on the https://dev.fitbit.com/apps page.
     # Load Settings
-    parser = ConfigParser.SafeConfigParser()
-    parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + CONFIG)
-    CLIENT_ID = parser.get('Login Parameters', 'C_KEY')
-    CLIENT_SECRET = parser.get('Login Parameters', 'C_SECRET')
-    REDIRECT_URI  = parser.get('Login Parameters', 'REDIRECT_URI')
+    CLIENT_ID = parser.get('Authentication', 'C_KEY')
+    CLIENT_SECRET = parser.get('Authentication', 'C_SECRET')
+    REDIRECT_URI  = parser.get('Authentication', 'REDIRECT_URI')
 
     # Decide which information the FitBit.py should have access to.
     # Options: 'activity', 'heartrate', 'location', 'nutrition',
@@ -187,8 +193,6 @@ class Fitbit():
         return token
 
     def TimeSeries(self, endpoint):
-        parser = ConfigParser.SafeConfigParser()
-        parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + CONFIG)
         date_interval = parser.get(endpoint, 'DATE_INTERVAL')
         time_interval = parser.get(endpoint, 'TIME_INTERVAL')
         time_delay = parser.get(endpoint, 'TIME_DELAY')

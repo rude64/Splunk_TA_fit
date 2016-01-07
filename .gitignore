@@ -8,4 +8,4 @@
 # Splunk Specific Testing Configs
 local/
 config.ini
-user_settings.txt
+/bin/user_settings.txt
