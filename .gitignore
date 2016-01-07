@@ -7,6 +7,5 @@
 
 # Splunk Specific Testing Configs
 local/
-config.ini
 /bin/user_settings.txt
 /metadata/local.meta
