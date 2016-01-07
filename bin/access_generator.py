@@ -9,8 +9,10 @@ usage. I need to automate process still. - JB
 import os, fitbit, json
 import cherrypy
 import webbrowser
-import requests.packages.urllib3
-requests.packages.urllib3.disable_warnings()
+#import requests.packages.urllib3
+#requests.packages.urllib3.disable_warnings()
+
+
 
 # Setup Splunk Environment
 APPNAME = 'Splunk_TA_fit'

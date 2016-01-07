@@ -15,27 +15,27 @@ import datetime as dt
 import json
 import ConfigParser
 
+
 # Setup Splunk Environment
 APPNAME = 'Splunk_TA_fit'
-LOCAL_CONFIG = '/local/appconfig.conf'
-DEFAULT_CONFIG = '/default/appconfig.conf'
+CONFIG = 'appconfig.conf'
 SPLUNK_HOME = os.environ['SPLUNK_HOME']
 TOKEN_CONFIG = '/bin/user_settings.txt'
 
 tokenfile = SPLUNK_HOME + '/etc/apps/' + APPNAME + TOKEN_CONFIG
 
-try:
-    parser = ConfigParser.SafeConfigParser()
-    parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + LOCAL_CONFIG)
-finally:
-    parser = ConfigParser.SafeConfigParser()
-    parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + DEFAULT_CONFIG)
-
+parser = ConfigParser.SafeConfigParser()
 
 class Fitbit():
 
     # All information must be as on the https://dev.fitbit.com/apps page.
     # Load Settings
+    parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + '/local/' + CONFIG)
+    if parser.has_section('Authentication'):
+        pass
+    else:
+        parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + '/default/' + CONFIG)
+
     CLIENT_ID = parser.get('Authentication', 'C_KEY')
     CLIENT_SECRET = parser.get('Authentication', 'C_SECRET')
     REDIRECT_URI  = parser.get('Authentication', 'REDIRECT_URI')
@@ -193,6 +193,11 @@ class Fitbit():
         return token
 
     def TimeSeries(self, endpoint):
+        if parser.has_section(endpoint):
+            pass
+        else:
+            parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + '/default/' + CONFIG)
+
         date_interval = parser.get(endpoint, 'DATE_INTERVAL')
         time_interval = parser.get(endpoint, 'TIME_INTERVAL')
         time_delay = parser.get(endpoint, 'TIME_DELAY')
