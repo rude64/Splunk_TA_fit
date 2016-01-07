@@ -23,6 +23,7 @@
 ## Script Files
 - /bin/fitbit.py - Python class for handling data and token requests
 - /bin/access_generator.py - Command line utility for gaining initial access to your Fitbit account data
+- /bin/CherryPy-4.0.0.egg - Egg file for token verification. Prevents install of requests in your Splunk Environment
 - /bin/requests-2.0.0-py2.7.egg - Egg file for requests. Prevents install of requests in your Splunk Environment
 - /bin/*&lt;endpoint type&gt;*.py - Worker files for ingesting different data sources from Fitbit
 
@@ -37,7 +38,7 @@
 
 ## Installation Instructions
 
-## Preparation
+### Preparation
 Before using this TA, you must create a Fitbit app at [https://dev.fitbit.com](https://dev/fitbit.com) using the _Personal_ App type. This will provide you with all the necessary OAuth2 credentials required to gain access to your data. Additionally, the *Personal* will allow you to gain access to the intraday time series information used by this TA's Activity and Heart Rate monitoring. Please see the Fitbit Application documents on the Fitbit web site for information on completing this step.
 
 ### Install the TA in Splunk
