@@ -50,7 +50,7 @@ _**Advanced Config:** $SPLUNK_HOME/etc/apps/Splunk_TA_fit/default/appconfig.conf
 #### Create Access Token:
 Run the __access_generator.py__ from your terminal or command line located in the _$SPLUNK_HOME/etc/apps/Splunk_TA_fit/bin_ folder. This file creates the necessary access tokens and permissions in order for the Technology Addon to consume user data. This utility requires that you have already configured during the setup steps previously performed within your Splunk environment. Run the following commands in your terminal:
 
-    cd bin/
+    cd $SPLUNK_HOME/etc/apps/Splunk_TA_fit/bin/
     chmod +x access_generator.py
     python access_generator.py
 
