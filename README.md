@@ -37,6 +37,9 @@
 
 ## Installation Instructions
 
+## Preparation
+Before using this TA, you must create a Fitbit app at [https://dev.fitbit.com](https://dev/fitbit.com) using the _Personal_ App type. This will provide you with all the necessary OAuth2 credentials required to gain access to your data. Additionally, the *Personal* will allow you to gain access to the intraday time series information used by this TA's Activity and Heart Rate monitoring. Please see the Fitbit Application documents on the Fitbit web site for information on completing this step.
+
 ### Install the TA in Splunk
 Install the TA on your Splunk indexers via any Splunk provided means. Install from file is preferred, however any installation procedure can be followed. If you are unfamiliar with Splunk app installation see the following [Splunk Answers Post](https://answers.splunk.com/answers/51894/how-to-install-a-splunk-app.html). Then restart Splunk in order to continue installation.
 
