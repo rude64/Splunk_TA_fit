@@ -11,6 +11,6 @@ token = fit.ReadToken()
 summary = fit.ApiCall(token, '/1/user/-/sleep/date/today.json')
 
 # Get response and send to STDOUT for Splunk ingestion
-#summary = json.dumps(summary)
+summary = json.dumps(summary)
 
-print '["summary": %s]' % summary['summary']
+print summary
