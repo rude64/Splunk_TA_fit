@@ -74,6 +74,9 @@ A sample __inputs.conf__ file has been provided in the _$SPLUNK_HOME/etc/apps/Sp
 
 Now restart Splunk and you should start receiving data within a few minutes!
 
+### Index Location and User Roles
+This TA will create a standard index called __fit__ inside your indexer(s). The permissions to view this index by default have already been added to the __fit_analyst__ role created during the installation process. You will need to assign this role to any user account that would need access to your fitbit data. By design, this role will not have access to perform the TA setup operations inside of __Manage Apps__, and only the Admin will have this capability.
+
 ---
 
 *Fitbit is a registered trademark and service mark of Fitbit, Inc. Splunk Technology Add-on for Fitbit is designed for use with the Fitbit platform. This product is not put out by Fitbit, and Fitbit does not service or warrant the functionality of this product.* ![Fitbit Icon](/../master/static/FitbitLogo.png?raw=true "Fitbit Icon")
